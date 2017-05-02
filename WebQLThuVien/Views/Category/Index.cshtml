@@ -1,0 +1,100 @@
+﻿@model IEnumerable<WebQLThuVien.Models.Category>
+@{
+    ViewBag.Title = "Danh sách thể loại";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Danh sách thể loại</h4>
+                </div>
+                <div class="card-content">
+                    <table class="table table-hover" id="mainTable">
+                        <thead>
+                            <tr>
+                                <th>@Html.DisplayNameFor(x => x.Id)</th>
+                                <th>@Html.DisplayNameFor(x => x.Name)</th>
+                                <th style="width: 200px">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm btn-group-justified">
+                                            <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary"><i class="material-icons">mode_edit</i></a>
+                                            <a data-href="@Url.Action("Delete", new { id = item.Id })" href="#" onclick="deleteItem(this)" class="btn btn-warning"><i class="material-icons">delete_forever</i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    <h4 class="title">Thao tác</h4>
+                </div>
+                <div class="card-content">
+                    @Html.ActionLink("Tạo mới thể loại", "Create", null, new { @class = "btn btn-primary btn-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Xác nhận xóa?</h4>
+            </div>
+            <div class="modal-body">
+                Thao tác này không thể khôi phục được, muốn tiếp tục?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger btn-simple" onclick="confirmDelete()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function() {
+            $('#mainTable').DataTable({
+                ordering: false,
+                info: false,
+            });
+        })
+    </script>
+    <script type="text/javascript">
+        var url;
+        function deleteItem(item) {
+            url = $(item).data('href');
+            $('#modal').modal({ backdrop: false });
+        }
+        function confirmDelete() {
+            top.location.href = url;
+        }
+    </script>
+}
+
+@section styles
+{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
+}

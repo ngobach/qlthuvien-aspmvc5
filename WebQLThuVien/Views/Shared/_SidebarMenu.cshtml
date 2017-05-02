@@ -1,0 +1,29 @@
+﻿@{
+    var controller = (ViewContext.RouteData.Values["controller"] as string).ToLower();
+}
+<ul class="nav">
+    <li class="@(controller == "dashboard"?"active":null)">
+        <a href="@Url.Action("Index", "Dashboard")"><i class="material-icons">dashboard</i> <p>Bảng điều khiển</p></a>
+    </li>
+    <li class="@(controller == "user"?"active":null)">
+        <a href="@Url.Action("Index", "User")"><i class="material-icons">account_circle</i> <p>QL Người dùng</p></a>
+    </li>
+    <li class="@(controller == "publisher"?"active":null)">
+        <a href="@Url.Action("Index", "Publisher")"><i class="material-icons">print</i> <p>QL Nhà xuất bản</p></a>
+    </li>
+    <li class="@(controller == "author"?"active":null)">
+        <a href="@Url.Action("Index", "Author")"><i class="material-icons">assignment_ind</i> <p>QL Tác giả</p></a>
+    </li>
+    <li class="@(controller == "category"?"active":null)">
+        <a href="@Url.Action("Index", "Category")"><i class="material-icons">bookmark</i> <p>QL Thể loại</p></a>
+    </li>
+    <li class="@(controller == "book"?"active":null)">
+        <a href="@Url.Action("Index", "Book")"><i class="material-icons">book</i> <p>QL Sách</p></a>
+    </li>
+    <li class="@(controller == "reader"?"active":null)">
+        <a href="@Url.Action("Index", "Reader")"><i class="material-icons">face</i> <p>QL Độc giả</p></a>
+    </li>
+    <li class="@(controller == "ticket"?"active":null)">
+        <a href="@Url.Action("Index", "Ticket")"><i class="material-icons">person</i> <p>QL Phiếu mượn</p></a>
+    </li>
+</ul>

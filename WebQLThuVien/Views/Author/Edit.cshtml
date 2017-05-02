@@ -1,0 +1,44 @@
+﻿@model WebQLThuVien.Models.Author
+@{
+    ViewBag.Title = "Chỉnh sửa tác giả";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="card">
+                <div class="card-header" data-background-color="orange">
+                    <h3 class="title">Chỉnh sửa tác giả</h3>
+                </div>
+                <div class="card-content">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Name, new { @class = "control-label" })
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Description, new { @class = "control-label" })
+                            @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                        </div>
+                        if (!Html.ViewData.ModelState.IsValid)
+                        {
+                            @Html.ValidationSummary(false, null, new { @class = "alert alert-danger" })
+                        }
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-info">
+                                @ViewBag.Message
+                            </div>
+                        }
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Đồng ý</button>
+                            <a href="@Url.Action("Index")" class="btn btn-info">Trở lại</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<WebQLThuVien.Models.User>
+
+@{
+    ViewBag.Title = "Danh sách người dùng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header" data-background-color="red">
+                    <h4 class="title">Danh dách người dùng</h4>
+                    <span class="category">Nơi bạn có thể quản lý các người dùng có thể đăng nhập vào hệ thống</span>
+                </div>
+                <div class="card-content">
+                    <table class="table">
+                        <tr>
+                            <th>ID</th>
+                            <th>Username</th>
+                            <th>Email</th>
+                            <th>Tên người dùng</th>
+                            <th style="width: 20%">Thao tác</th>
+                        </tr>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Username</td>
+                                <td>@item.Email</td>
+                                <td>@item.Fullname</td>
+                                <td>
+                                    <div class="btn-group btn-group-sm btn-group-justified">
+                                        <a href="@Url.Action("Edit", new {id = item.Id})" class="btn btn-primary"><i class="material-icons">mode_edit</i></a>
+                                        <a href="javascript: void 0" onclick="deleteUser(this)" data-href="@Url.Action("Delete", new {id = item.Id})" class="btn btn-warning"><i class="material-icons">delete_forever</i></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    <h4 class="title">Thao tác</h4>
+                    <span class="category">Thêm mới, chỉnh sửa, etc...</span>
+                </div>
+                <div class="card-content">
+                    @Html.ActionLink("Thêm mới người dùng", "Create", null, new { @class = "btn btn-primary btn-block" })
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Xác nhận xóa?</h4>
+            </div>
+            <div class="modal-body">
+                Thao tác này không thể khôi phục được, muốn tiếp tục?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-simple" data-dismiss="modal">Hủy</button>
+                <button type="button" class="btn btn-danger btn-simple" onclick="confirmDelete()">Xóa</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        var url;
+        function deleteUser(item) {
+            url = $(item).data('href');
+            $('#modal').modal({ backdrop: false });
+        }
+        function confirmDelete() {
+            top.location.href = url;
+        }
+    </script>
+}
