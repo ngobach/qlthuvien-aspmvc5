@@ -140,7 +140,7 @@
     <Compile Include="Models\Author.cs" />
     <Compile Include="Models\Book.cs" />
     <Compile Include="Models\Category.cs" />
-    <Compile Include="Models\DatabaseSeeder.cs" />
+    <Compile Include="Models\CreateDatabaseSeeder.cs" />
     <Compile Include="Models\Publisher.cs" />
     <Compile Include="Models\Reader.cs" />
     <Compile Include="Models\ThuVienDb.cs" />

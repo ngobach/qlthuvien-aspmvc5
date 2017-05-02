@@ -1,4 +1,5 @@
 using System.Data.Entity;
+using System.Diagnostics;
 
 namespace WebQLThuVien.Models
 {
@@ -7,7 +8,14 @@ namespace WebQLThuVien.Models
         public ThuVienDb()
             : base("name=ThuVienDb")
         {
-            Database.SetInitializer(new DatabaseSeeder());
+            if (Database.Connection.ConnectionString.Contains("LocalDb"))
+            {
+                Database.SetInitializer(new DebugDatabaseSeeder());
+            }
+            else
+            {
+                Database.SetInitializer(new DatabaseSeeder());
+            }
         }
 
         public virtual DbSet<User> Users { get; set; }

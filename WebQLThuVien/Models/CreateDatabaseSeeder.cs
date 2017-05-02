@@ -2,13 +2,13 @@
 
 namespace WebQLThuVien.Models
 {
-    public class DatabaseSeeder : DropCreateDatabaseIfModelChanges<ThuVienDb>
+    public class MySeeder
     {
-        protected override void Seed(ThuVienDb context)
+        public static void Seed(ThuVienDb context)
         {
             // Users
-            context.Users.Add(new User { Username = "bachnx", Password = "matkhau", Email = "mail@ngobach.com", Fullname = "Ngô Xuân Bách"});
-            context.Users.Add(new User { Username = "namdv", Password = "matkhau", Email = "dinhnamitvn@gmail.com", Fullname = "Đinh Viết Nam"});
+            context.Users.Add(new User { Username = "bachnx", Password = "matkhau", Email = "mail@ngobach.com", Fullname = "Ngô Xuân Bách" });
+            context.Users.Add(new User { Username = "namdv", Password = "matkhau", Email = "dinhnamitvn@gmail.com", Fullname = "Đinh Viết Nam" });
             // Authors
             context.Authors.AddRange(new[]
             {
@@ -55,6 +55,23 @@ namespace WebQLThuVien.Models
             // TODO: 
             // Tickets
             // TODO: 
+        }
+    }
+
+    public class DebugDatabaseSeeder : DropCreateDatabaseIfModelChanges<ThuVienDb>
+    {
+        protected override void Seed(ThuVienDb context)
+        {
+            MySeeder.Seed(context);
+            base.Seed(context);
+        }
+    }
+
+    public class DatabaseSeeder : CreateDatabaseIfNotExists<ThuVienDb>
+    {
+        protected override void Seed(ThuVienDb context)
+        {
+            MySeeder.Seed(context);
             base.Seed(context);
         }
     }
