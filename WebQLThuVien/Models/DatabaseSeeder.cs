@@ -1,8 +1,12 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using Faker;
 
 namespace WebQLThuVien.Models
 {
-    public class MySeeder
+    internal class MySeeder
     {
         public static void Seed(ThuVienDb context)
         {
@@ -52,7 +56,25 @@ namespace WebQLThuVien.Models
             });
             context.SaveChanges();
             // Books
-            // TODO: 
+            {
+                var authors = context.Authors.ToList();
+                var publishers = context.Publishers.ToList();
+                var categories = context.Categories.ToList();
+                var items = Enumerable.Repeat(0, 200)
+                    .Select(x => new Book
+                    {
+                        Author = authors[RandomNumber.Next(authors.Count)],
+                        Category = categories[RandomNumber.Next(categories.Count)],
+                        Publisher =  publishers[RandomNumber.Next(publishers.Count)],
+                        Count = RandomNumber.Next(10, 100),
+                        Description = Lorem.Paragraph(),
+                        Name = Lorem.Sentence(4),
+                        Price = RandomNumber.Next(10, 100) * 1000,
+                        NumberOfPage = RandomNumber.Next(40, 345),
+                        PublishYear = RandomNumber.Next(2008, 2017)
+                    });
+                context.Books.AddRange(items);
+            }
             // Tickets
             // TODO: 
         }

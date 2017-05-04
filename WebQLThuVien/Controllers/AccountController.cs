@@ -10,15 +10,10 @@ namespace WebQLThuVien.Controllers
 {
     public class AccountController : Controller
     {
-        protected override void Initialize(RequestContext requestContext)
-        {
-            base.Initialize(requestContext);
-        }
-
-        // GET: Account
+        [HttpGet]
         public ActionResult Index()
         {
-            return Session["uid"] != null ? RedirectToAction("Index", "User") : RedirectToAction("Login", "Account");
+            return Session["uid"] != null ? RedirectToAction("Index", "Dashboard") : RedirectToAction("Login", "Account");
         }
 
         [HttpGet]
@@ -35,11 +30,11 @@ namespace WebQLThuVien.Controllers
             {
                 user = db.Users.First(x => x.Username == user.Username && x.Password == user.Password);
                 Session["uid"] = user.Id;
-                return RedirectToAction("Index", "User");
+                return RedirectToAction("Index", "Dashboard");
             }
             catch (Exception)
             {
-                ModelState.AddModelError("", "Tài khoảng hoặc mật khẩu không chính xác");
+                ModelState.AddModelError("", "Tài khoản hoặc mật khẩu không chính xác");
                 return View();
             }
         }

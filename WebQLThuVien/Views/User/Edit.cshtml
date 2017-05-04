@@ -14,19 +14,19 @@
                 <div class="card-content">
                     @using (Html.BeginForm())
                     {
-                        <div class="form-group">
+                        <div class="form-group label-floating">
                             @Html.LabelFor(x => x.Fullname, new { @class = "control-label" })
                             @Html.TextBoxFor(x => x.Fullname, new { @class = "form-control" })
                         </div>
-                        <div class="form-group">
+                        <div class="form-group label-floating">
                             @Html.LabelFor(x => x.Email, new { @class = "control-label" })
                             @Html.TextBoxFor(x => x.Email, new { @class = "form-control" })
                         </div>
-                        <div class="form-group">
+                        <div class="form-group label-floating">
                             @Html.LabelFor(x => x.Password, new { @class = "control-label" })
                             @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
                         </div>
-                        <div class="form-group">
+                        <div class="form-group label-floating">
                             @Html.LabelFor(x => x.RePassword, new { @class = "control-label" })
                             @Html.PasswordFor(x => x.RePassword, new { @class = "form-control" })
                         </div>

@@ -17,7 +17,7 @@ namespace WebQLThuVien.Controllers
         [HttpGet]
         public ActionResult Index()
         {
-            return View(db.Authors.ToList());
+            return View(db.Authors.Include(x => x.Books).ToList());
         }
 
         [HttpGet]

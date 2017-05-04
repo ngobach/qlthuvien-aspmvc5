@@ -1,7 +1,7 @@
-﻿@using Newtonsoft.Json.Linq
-@model IEnumerable<WebQLThuVien.Models.Publisher>
+﻿@model IEnumerable<WebQLThuVien.Models.Book>
+
 @{
-    ViewBag.Title = "Danh sách nhà xuất bản";
+    ViewBag.Title = "Quản lý sách";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -10,33 +10,33 @@
         <div class="col-sm-9">
             <div class="card">
                 <div class="card-header" data-background-color="red">
-                    <h4 class="title">Danh sách nhà xuất bản</h4>
+                    <h4 class="title">@ViewBag.Title</h4>
                 </div>
                 <div class="card-content">
                     <table class="table table-hover" id="mainTable">
                         <thead class="text-danger">
-                        <tr>
-                            <th style="width: 30px">@Html.DisplayNameFor(pub => pub.Id)</th>
-                            <th>@Html.DisplayNameFor(pub => pub.Name)</th>
-                            <th>@Html.DisplayNameFor(pub => pub.Description)</th>
-                            <th style="width: 150px">Thao tác</th>
-                        </tr>
+                            <tr>
+                                <th style="width: 30px">@Html.DisplayNameFor(x => x.Id)</th>
+                                <th style="width: 100%">@Html.DisplayNameFor(x => x.Name)</th>
+                                <th style="width: 100%">@Html.DisplayNameFor(x => x.Author)</th>
+                                <th style="width: 150px">Thao tác</th>
+                            </tr>
                         </thead>
                         <tbody>
-                        @foreach (var item in Model)
-                        {
-                            <tr>
-                                <td>@item.Id</td>
-                                <td>@item.Name</td>
-                                <td>@item.Description</td>
-                                <td>
-                                    <div class="btn-group btn-group-sm btn-group-justified">
-                                        <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary"><i class="material-icons">mode_edit</i></a>
-                                        <a data-href="@Url.Action("Delete", new { id = item.Id })" href="#" onclick="deleteItem(this)" class="btn btn-warning"><i class="material-icons">delete_forever</i></a>
-                                    </div>
-                                </td>
-                            </tr>
-                        }
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Id</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.Author.Name</td>
+                                    <td>
+                                        <div class="btn-group btn-group-sm btn-group-justified">
+                                            <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary"><i class="material-icons">mode_edit</i></a>
+                                            <a data-href="@Url.Action("Delete", new { id = item.Id })" href="#" onclick="deleteItem(this)" class="btn btn-warning"><i class="material-icons">delete_forever</i></a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                 </div>
@@ -48,7 +48,7 @@
                     <h4 class="title">Thao tác</h4>
                 </div>
                 <div class="card-content">
-                    @Html.ActionLink("Tạo nhà xuất bản","Create", null, new { @class = "btn btn-primary btn-block" })
+                    @Html.ActionLink("Tạo mới", "Create", null, new { @class = "btn btn-primary btn-block" })
                 </div>
             </div>
         </div>
@@ -87,18 +87,18 @@
         })
     </script>
     <script type="text/javascript">
-            var url;
-            function deleteItem(item) {
-                url = $(item).data('href');
-                $('#modal').modal({ backdrop: false });
-            }
-            function confirmDelete() {
-                top.location.href = url;
-            }
+        var url;
+        function deleteItem(item) {
+            url = $(item).data('href');
+            $('#modal').modal({ backdrop: false });
+        }
+        function confirmDelete() {
+            top.location.href = url;
+        }
     </script>
 }
 
 @section styles
 {
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" />
 }

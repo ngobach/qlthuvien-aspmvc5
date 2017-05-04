@@ -26,7 +26,7 @@ namespace WebQLThuVien.Filters
 
             if (filterContext.HttpContext.Session["uid"] == null)
             {
-                filterContext.Result = new RedirectResult("~/Dashboard");
+                filterContext.Result = new RedirectResult("~/Account/Login");
                 return;
             }
             using (var db = new ThuVienDb())
