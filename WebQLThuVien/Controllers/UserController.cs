@@ -39,6 +39,7 @@ namespace WebQLThuVien.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult Edit(EditUserViewModel model)
         {
             if ((model.Password != null || model.RePassword != null) && model.Password != model.RePassword)
@@ -53,7 +54,7 @@ namespace WebQLThuVien.Controllers
                 if (model.Password != null)
                     user.Password = model.Password;
                 db.SaveChanges();
-                ViewBag.Message = "Cập nhật người dùng thành công";
+                Session["message"] = "Cập nhật người dùng thành công";
                 return View(model);
             }
             return View(model);
@@ -74,6 +75,7 @@ namespace WebQLThuVien.Controllers
                 var user = new User { Email = model.Email, Fullname = model.Fullname, Username = model.Username, Password = model.Password};
                 db.Users.Add(user);
                 db.SaveChanges();
+                Session["message"] = "Tạo mới người dùng thành công";
                 return RedirectToAction("Index");
             }
             return View(model);
@@ -82,8 +84,15 @@ namespace WebQLThuVien.Controllers
         [HttpGet]
         public ActionResult Delete(int id)
         {
+            if (id == ViewBag.User.Id)
+            {
+                Session["message"] = "Bạn không thể xóa chính bạn";
+                Session["type"] = "danger";
+                return RedirectToAction("Index");
+            }
             db.Users.RemoveRange(db.Users.Where(user => user.Id == id));
             db.SaveChanges();
+            Session["message"] = "Xóa người dùng thành công";
             return RedirectToAction("Index");
         }
 

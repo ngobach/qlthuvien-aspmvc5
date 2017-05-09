@@ -1,0 +1,63 @@
+﻿@model WebQLThuVien.Models.Ticket
+
+@{
+    ViewBag.Title = "Chi tiết phiếu mượn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    <h4 class="title">@ViewBag.Title</h4>
+                </div>
+                <div class="card-content">
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <b>@Html.DisplayNameFor(model => model.Id)</b><br />
+                            <span>@Html.DisplayFor(model => model.Id)</span>
+                        </div>
+                        <div class="col-xs-4">
+                            <b>Số sách mượn</b><br />
+                            <span>@Html.DisplayFor(model => model.Books.Count)</span>
+                        </div>
+                        <div class="col-xs-4">
+                            <b>Tình trạng</b><br />
+                            <span>@Html.DisplayFor(model => model.Status)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-4">
+                            <b>Ngày mượn</b><br/>
+                            <span>@Html.DisplayFor(model => model.DateCreated)</span>
+                        </div>
+                        <div class="col-xs-4">
+                            <b>Ngày trả</b><br/>
+                            <span>@Html.DisplayFor(model => model.DateReturned)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="pull-right">
+                        <a href="@Url.Action("Edit", new {id = Model.Id})" class="btn btn-sm btn-simple btn-primary">Chỉnh sửa</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header" data-background-color="purple">
+                    <h4 class="title">Các sách có trong phiếu</h4>
+                </div>
+                <div class="card-content">
+                    <div class="list-group">
+                        @foreach (var book in Model.Books)
+                        {
+                            <a class="list-group-item" href="@Url.Action("Detail", "Book", new {id = book.Id})">@book.Name</a>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

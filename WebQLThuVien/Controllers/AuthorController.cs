@@ -35,9 +35,9 @@ namespace WebQLThuVien.Controllers
                 db.Authors.Attach(author);
                 db.Entry(author).State = EntityState.Modified;
                 db.SaveChanges();
+                Session["message"] = "Cập nhật tác giả thành công";
                 return RedirectToAction("Index");
             }
-
             return View(author);
         }
 
@@ -46,6 +46,7 @@ namespace WebQLThuVien.Controllers
         {
             db.Authors.Remove(db.Authors.First(x => x.Id == id));
             db.SaveChanges();
+            Session["message"] = "Xóa tác giả thành công";
             return RedirectToAction("Index");
         }
 

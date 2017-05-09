@@ -37,6 +37,7 @@ namespace WebQLThuVien.Controllers
                 db.Categories.Attach(category);
                 db.Entry(category).State = EntityState.Modified;
                 db.SaveChanges();
+                Session["message"] = "Cập nhật danh mục thành công";
                 return RedirectToAction("Index");
             }
 
@@ -65,6 +66,7 @@ namespace WebQLThuVien.Controllers
                 var category = db.Categories.First(x => x.Id == id);
                 db.Categories.Remove(category);
                 db.SaveChanges();
+                Session["message"] = "Xóa danh mục thành công";
                 return RedirectToAction("Index");
             }
             catch (Exception)

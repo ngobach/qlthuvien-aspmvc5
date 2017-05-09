@@ -10,7 +10,7 @@ namespace WebQLThuVien.Models
     {
         public int Id { get; set; }
         [Required]
-        [Display(Name = "Tên nhà xb")]
+        [Display(Name = "Tên nhà xuất bản")]
         public string Name { get; set; }
         [Required]
         [Display(Name = "Giới thiệu về nxb")]

@@ -35,6 +35,7 @@ namespace WebQLThuVien.Controllers
                 db.Publishers.Attach(publisher);
                 db.Entry(publisher).State = EntityState.Modified;
                 db.SaveChanges();
+                Session["message"] = "Cập nhật nhà xuất bản thành công";
                 return RedirectToAction("Index");
             }
 
@@ -63,6 +64,7 @@ namespace WebQLThuVien.Controllers
                 var publisher = db.Publishers.First(pub => pub.Id == id);
                 db.Publishers.Remove(publisher);
                 db.SaveChanges();
+                Session["message"] = "Xóa nhà xuất bản thành công";
                 return RedirectToAction("Index");
             }
             catch (Exception)

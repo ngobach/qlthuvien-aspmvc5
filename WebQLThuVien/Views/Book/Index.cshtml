@@ -19,6 +19,7 @@
                                 <th style="width: 30px">@Html.DisplayNameFor(x => x.Id)</th>
                                 <th style="width: 100%">@Html.DisplayNameFor(x => x.Name)</th>
                                 <th style="width: 100%">@Html.DisplayNameFor(x => x.Author)</th>
+                                <th style="width: 120px">@Html.DisplayNameFor(x => x.PublishYear)</th>
                                 <th style="width: 150px">Thao tác</th>
                             </tr>
                         </thead>
@@ -29,10 +30,15 @@
                                     <td>@item.Id</td>
                                     <td>@item.Name</td>
                                     <td>@item.Author.Name</td>
+                                    <td>@item.PublishYear</td>
                                     <td>
-                                        <div class="btn-group btn-group-sm btn-group-justified">
-                                            <a href="@Url.Action("Edit", new { id = item.Id })" class="btn btn-primary"><i class="material-icons">mode_edit</i></a>
-                                            <a data-href="@Url.Action("Delete", new { id = item.Id })" href="#" onclick="deleteItem(this)" class="btn btn-warning"><i class="material-icons">delete_forever</i></a>
+                                        <div class="btn-group btn-group-sm">
+                                            <a href="@Url.Action("Detail", new { id = item.Id })" class="btn btn-success">Chi tiết</a>
+                                            <button class="btn btn-success dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                            <ul class="dropdown-menu">
+                                                <li><a href="@Url.Action("Edit", new { id = item.Id })">Chỉnh sửa</a></li>
+                                                <li><a data-href="@Url.Action("Delete", new { id = item.Id })" href="#" onclick="deleteItem(this)">Xóa</a></li>
+                                            </ul>
                                         </div>
                                     </td>
                                 </tr>

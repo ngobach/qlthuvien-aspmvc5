@@ -16,7 +16,18 @@ namespace WebQLThuVien.Models
             {
                 Database.SetInitializer(new DatabaseSeeder());
             }
-            Database.Log = sql => Debug.Write(sql);
+        }
+
+        public void Debug(bool on)
+        {
+            if (on)
+            {
+                Database.Log = sql => System.Diagnostics.Debug.Write(sql);
+            }
+            else
+            {
+                Database.Log = null;
+            }
         }
 
         public virtual DbSet<User> Users { get; set; }

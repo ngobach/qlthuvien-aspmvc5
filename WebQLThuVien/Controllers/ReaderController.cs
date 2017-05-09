@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using WebQLThuVien.Filters;
 using WebQLThuVien.Models;
@@ -12,7 +10,7 @@ namespace WebQLThuVien.Controllers
     [AuthFilter]
     public class ReaderController : Controller
     {
-        ThuVienDb db = new ThuVienDb();
+        private readonly ThuVienDb db = new ThuVienDb();
 
         [HttpGet]
         public ActionResult Index()
@@ -26,7 +24,7 @@ namespace WebQLThuVien.Controllers
             var reader = new Reader {Fullname = "Họ tên"};
             db.Readers.Add(reader);
             db.SaveChanges();
-            return RedirectToAction("Edit", new { id = reader.Id });
+            return RedirectToAction("Edit", new {id = reader.Id});
         }
 
         [HttpPost]
@@ -37,6 +35,7 @@ namespace WebQLThuVien.Controllers
                 db.Readers.Attach(reader);
                 db.Entry(reader).State = EntityState.Modified;
                 db.SaveChanges();
+                Session["message"] = "Cập nhật độc giả thành công";
                 return RedirectToAction("Index");
             }
 
@@ -65,6 +64,7 @@ namespace WebQLThuVien.Controllers
                 var reader = db.Readers.First(x => x.Id == id);
                 db.Readers.Remove(reader);
                 db.SaveChanges();
+                Session["message"] = "Xóa độc giả thành công";
                 return RedirectToAction("Index");
             }
             catch (Exception)

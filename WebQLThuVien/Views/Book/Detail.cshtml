@@ -1,0 +1,86 @@
+﻿@model WebQLThuVien.Models.Book
+
+@{
+    ViewBag.Title = "Thông tin sách " + Model.Name;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-8 col-md-9">
+            <div class="card">
+                <div class="card-header" data-background-color="green">
+                    <h4 class="title">Thông tin sách</h4>
+                </div>
+                <div class="card-content">
+                    <table class="table table-hover">
+                        <tr>
+                            <td><b>Tên sách</b></td>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <td><b>Giới thiệu sách</b></td>
+                            <td>@Model.Description</td>
+                        </tr>
+                        <tr>
+                            <td><b>Tác giả</b></td>
+                            <td>@Model.Author.Name</td>
+                        </tr>
+                        <tr>
+                            <td><b>Danh mục</b></td>
+                            <td>@Model.Category.Name</td>
+                        </tr>
+                        <tr>
+                            <td><b>Nhà xuất bản</b></td>
+                            <td>@Model.Publisher.Name</td>
+                        </tr>
+                        <tr>
+                            <td><b>Năm xuất bản</b></td>
+                            <td>@Model.PublishYear</td>
+                        </tr>
+                        <tr>
+                            <td><b>Số trang</b></td>
+                            <td>@Model.NumberOfPage</td>
+                        </tr>
+                        <tr>
+                            <td><b>Giá bán niêm yết</b></td>
+                            <td>@Model.Price</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4 col-md-3">
+            <div class="card card-stats">
+                <div class="card-header" data-background-color="orange">
+                    <i class="material-icons">book</i>
+                </div>
+                <div class="card-content">
+                    <p class="category">Số lượng sách</p>
+                    <h3 class="title">@Model.Count <small>cuốn</small></h3>
+                </div>
+            </div>
+            <div class="card card-stats">
+                <div class="card-header" data-background-color="purple">
+                    <i class="material-icons">library_books</i>
+                </div>
+                <div class="card-content">
+                    <p class="category">Số lượng còn lại</p>
+                    <h3 class="title">@Model.CountLeft <small>cuốn</small></h3>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header" data-background-color="blue">
+                    <h4 class="title">Thao tác</h4>
+                </div>
+                <div class="card-content">
+                    <div class="btn-group btn-group-justified">
+                        @Html.ActionLink("Cập nhật", "Edit", new { id = Model.Id }, new { @class = "btn btn-primary" })
+                        @Html.ActionLink("Xóa", "Delete", new { id = Model.Id }, new { @class = "btn btn-danger"})
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

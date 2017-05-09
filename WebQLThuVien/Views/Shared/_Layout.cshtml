@@ -12,6 +12,7 @@
     <meta name="viewport" content="width=device-width" />
 
     <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
     <link href="~/assets/css/material-dashboard.css" rel="stylesheet" />
     <link href="~/assets/css/app.css" rel="stylesheet" />
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
@@ -93,6 +94,26 @@
     <script src="~/assets/js/material.min.js" type="text/javascript"></script>
     <script src="~/assets/js/chartist.min.js"></script>
     <script src="~/assets/js/material-dashboard.js"></script>
-    @RenderSection("scripts", false)
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+    @if (Session.Has("message"))
+    {
+        <script type="text/javascript">
+            $.notify({
+                icon: 'notifications',
+                message: '@Session.Pull("Message")'
+            },
+            {
+                allow_dismiss: true,
+                type: '@(Session.Pull("type") ?? "success")',
+                placement: {
+                    from: "top",
+                    align: "right",
+	                delay: 5000
+                }
+            });
+        </script>
+    }
+@RenderSection("scripts", false)
 </body>
 </html>

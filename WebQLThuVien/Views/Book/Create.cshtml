@@ -1,0 +1,79 @@
+﻿@model WebQLThuVien.ViewModels.BookViewModel
+@{
+    ViewBag.Title = "Thêm mới sách";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3">
+            <div class="card">
+                <div class="card-header" data-background-color="orange">
+                    <h3 class="title">@ViewBag.Title</h3>
+                </div>
+                <div class="card-content">
+                    @using (Html.BeginForm())
+                    {
+                        <div class="form-group label-floating">
+                            @Html.LabelFor(x => x.Name, new { @class = "control-label" })
+                            @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group label-floating">
+                            @Html.LabelFor(x => x.Description, new { @class = "control-label" })
+                            @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.AuthorId, new { @class = "control-label" })
+                            @Html.DropDownListFor(x => x.AuthorId, new SelectList(ViewBag.Authors, "Id", "Name"), new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.CategoryId, new { @class = "control-label" })
+                            @Html.DropDownListFor(x => x.CategoryId, new SelectList(ViewBag.Categories, "Id", "Name"), new { @class = "form-control" })
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-8">
+                                @Html.LabelFor(x => x.PublisherId, new { @class = "control-label" })
+                                @Html.DropDownListFor(x => x.PublisherId, new SelectList(ViewBag.Publishers, "Id", "Name"), new { @class = "form-control" })
+                            </div>
+                            <div class="form-group col-sm-4">
+                                @Html.LabelFor(x => x.PublishYear, new { @class = "control-label" })
+                                @Html.TextBoxFor(x => x.PublishYear, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group label-floating">
+                                    @Html.LabelFor(x => x.Count, new { @class = "control-label" })
+                                    @Html.TextBoxFor(x => x.Count, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="form-group label-floating col-sm-4">
+                                @Html.LabelFor(x => x.NumberOfPage, new { @class = "control-label" })
+                                @Html.TextBoxFor(x => x.NumberOfPage, new { @class = "form-control" })
+                            </div>
+                            <div class="form-group label-floating col-sm-4">
+                                @Html.LabelFor(x => x.Price, new { @class = "control-label" })
+                                @Html.TextBoxFor(x => x.Price, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        if (!Html.ViewData.ModelState.IsValid)
+                        {
+                            @Html.ValidationSummary(false, null, new { @class = "alert alert-danger" })
+                        }
+                        if (ViewBag.Message != null)
+                        {
+                            <div class="alert alert-info">
+                                @ViewBag.Message
+                            </div>
+                        }
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Đồng ý</button>
+                            <a href="@Url.Action("Index")" class="btn btn-info">Trở lại</a>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

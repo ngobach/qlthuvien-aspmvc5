@@ -1,23 +1,35 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 namespace WebQLThuVien.Models
 {
     public class Book
     {
+        public Book()
+        {
+            Tickets = new List<Ticket>();
+        }
+
         public int Id { get; set; }
         [Required]
         [Display(Name = "Nhà xuất bản")]
+        public int PublisherId { get; set; }
+        [ForeignKey("PublisherId")]
         public virtual Publisher Publisher { get; set; }
         [Required]
         [Display(Name = "Danh mục thể loại")]
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
         public virtual Category Category { get; set; }
         [Required]
         [Display(Name = "Tác giả")]
+        public int AuthorId { get; set; }
+        [ForeignKey("AuthorId")]
         public virtual Author Author { get; set; }
         [Required]
-        [StringLength(100)]
         [Display(Name = "Tên sách")]
         public string Name { get; set; }
         [Required]
@@ -37,7 +49,7 @@ namespace WebQLThuVien.Models
 
         [NotMapped]
         [Display(Name = "Số lượng còn lại")]
-        public int CountLeft => 69;
+        public int CountLeft => Count - Tickets.Count(x => x.DateReturned == null);
 
         public virtual ICollection<Ticket> Tickets { get; set; }
     }

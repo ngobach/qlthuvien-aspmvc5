@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Linq;
 using System.Web.Mvc;
-using System.Web.Routing;
 using WebQLThuVien.Models;
 
 namespace WebQLThuVien.Filters
 {
     /// <summary>
-    /// Accept only guest users
+    ///     Accept only guest users
     /// </summary>
     public class AuthFilter : ActionFilterAttribute
     {
@@ -17,12 +13,10 @@ namespace WebQLThuVien.Filters
         {
             // Auto login first user
             if (filterContext.HttpContext.IsDebuggingEnabled)
-            {
                 using (var db = new ThuVienDb())
                 {
                     filterContext.HttpContext.Session["uid"] = db.Users.First().Id;
                 }
-            }
 
             if (filterContext.HttpContext.Session["uid"] == null)
             {
@@ -31,7 +25,7 @@ namespace WebQLThuVien.Filters
             }
             using (var db = new ThuVienDb())
             {
-                var uid = (int)filterContext.HttpContext.Session["uid"];
+                var uid = (int) filterContext.HttpContext.Session["uid"];
                 filterContext.Controller.ViewBag.User = db.Users.First(x => x.Id == uid);
             }
         }
