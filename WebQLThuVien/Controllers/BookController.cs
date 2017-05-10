@@ -49,7 +49,8 @@ namespace WebQLThuVien.Controllers
                     Count = vm.Count,
                     NumberOfPage = vm.NumberOfPage,
                     Price = vm.Price,
-                    PublishYear = vm.PublishYear
+                    PublishYear = vm.PublishYear,
+                    ThumbnailUrl = vm.ThumbnailUrl
                 };
                 db.Books.Add(book);
                 db.SaveChanges();
@@ -76,7 +77,8 @@ namespace WebQLThuVien.Controllers
                     Count = vm.Count,
                     NumberOfPage = vm.NumberOfPage,
                     Price = vm.Price,
-                    PublishYear = vm.PublishYear
+                    PublishYear = vm.PublishYear,
+                    ThumbnailUrl = vm.ThumbnailUrl
                 };
                 db.Books.Attach(book);
                 db.Entry(book).State = EntityState.Modified;
@@ -103,7 +105,8 @@ namespace WebQLThuVien.Controllers
                     PublishYear = book.PublishYear,
                     NumberOfPage = book.NumberOfPage,
                     Description = book.Description,
-                    Price = book.Price
+                    Price = book.Price,
+                    ThumbnailUrl = book.ThumbnailUrl
                 });
             }
             catch (Exception)

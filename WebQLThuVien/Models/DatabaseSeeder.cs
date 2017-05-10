@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using Faker;
+using Faker.Extensions;
 
 namespace WebQLThuVien.Models
 {
     internal class MySeeder
     {
-        private static string[] BookTitles =
+        private static readonly string[] BookTitles =
         {
             "Lạc Vào Miền Cổ Tích 02 - Phù Thủy Hắc Ám Trở Lại",
             "Nguyễn Nhật Ánh Trong Mắt Đồng Nghiệp",
@@ -201,32 +202,53 @@ namespace WebQLThuVien.Models
             "Hỏi Đáp Về 82 Bia Tiến Sĩ Tại Văn Miếu-Quốc Tử Giám",
             "Gương Sáng Trời Nam",
             "Những Bảng Nhãn Trong Lịch Sử Việt Nam",
-            "Nâng Cao Đạo Đức Cách Mạng, Quét Sạch Chủ Nghĩa Cá Nhân (Khổ Nhỏ)",
+            "Nâng Cao Đạo Đức Cách Mạng, Quét Sạch Chủ Nghĩa Cá Nhân (Khổ Nhỏ)"
+        };
+
+        private static readonly string[] Thumbnails =
+        {
+            "https://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/8/9/8932000125501_2.jpg",
+            "https://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/i/m/image_121636.jpg",
+            "https://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/8/9/8935235207189.jpg",
+            "https://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/9/7/9780735212169_1.png",
+            "https://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/d/i/dieu-bi-mat-1_1.jpg"
         };
 
         public static void Seed(ThuVienDb context)
         {
             // Users
-            context.Users.Add(new User { Username = "bachnx", Password = "matkhau", Email = "mail@ngobach.com", Fullname = "Ngô Xuân Bách" });
-            context.Users.Add(new User { Username = "namdv", Password = "matkhau", Email = "dinhnamitvn@gmail.com", Fullname = "Đinh Viết Nam" });
+            context.Users.Add(new User
+            {
+                Username = "bachnx",
+                Password = "matkhau",
+                Email = "mail@ngobach.com",
+                Fullname = "Ngô Xuân Bách"
+            });
+            context.Users.Add(new User
+            {
+                Username = "namdv",
+                Password = "matkhau",
+                Email = "dinhnamitvn@gmail.com",
+                Fullname = "Đinh Viết Nam"
+            });
             // Authors
             context.Authors.AddRange(new[]
             {
-                new Author { Name = "Nguyễn Ngọc Ngạn", Description = "Nothing" },
-                new Author { Name = "Trần Thu Hương", Description = "Nothing" },
-                new Author { Name = "Bùi Quốc Dũng", Description = "Nothing" },
-                new Author { Name = "Hoàng Văn Quân", Description = "Nothing" },
-                new Author { Name = "Đinh Sơn Nam", Description = "Nothing" },
-                new Author { Name = "Ngô Ngọc Thành", Description = "Nothing" },
-                new Author { Name = "Bùi Xuân Quyết", Description = "Nothing" },
+                new Author {Name = "Nguyễn Ngọc Ngạn", Description = "Nothing"},
+                new Author {Name = "Trần Thu Hương", Description = "Nothing"},
+                new Author {Name = "Bùi Quốc Dũng", Description = "Nothing"},
+                new Author {Name = "Hoàng Văn Quân", Description = "Nothing"},
+                new Author {Name = "Đinh Sơn Nam", Description = "Nothing"},
+                new Author {Name = "Ngô Ngọc Thành", Description = "Nothing"},
+                new Author {Name = "Bùi Xuân Quyết", Description = "Nothing"}
             });
             // Publisher
             context.Publishers.AddRange(new[]
             {
-                new Publisher { Name = "Kim Đồng", Description = "Nothing"},
-                new Publisher { Name = "Tuổi trẻ", Description = "Nothing"},
-                new Publisher { Name = "Văn Học", Description = "Nothing"},
-                new Publisher { Name = "Điện Lực", Description = "Nothing"},
+                new Publisher {Name = "Kim Đồng", Description = "Nothing"},
+                new Publisher {Name = "Tuổi trẻ", Description = "Nothing"},
+                new Publisher {Name = "Văn Học", Description = "Nothing"},
+                new Publisher {Name = "Điện Lực", Description = "Nothing"}
             });
             // Category
             context.Categories.AddRange(new[]
@@ -239,44 +261,63 @@ namespace WebQLThuVien.Models
                 new Category {Name = "Sách tham khảo"},
                 new Category {Name = "Khoa học viễn tưởng"},
                 new Category {Name = "Truyện tranh"},
-                new Category {Name = "Sách nông nghiệp"},
+                new Category {Name = "Sách nông nghiệp"}
             });
             // Reader
-            context.Readers.AddRange(new[]
-            {
-                new Reader { Fullname = "Ngô Xuân Bách", Address = "D8CNPM", PhoneNumber = "01693724182", Email = "mail@sample.net"},
-                new Reader { Fullname = "Trần Anh Đức", Address = "D8CNPM", PhoneNumber = "01693724182", Email = "mail@sample.net" },
-                new Reader { Fullname = "Trương Việt Anh", Address = "D8CNPM", PhoneNumber = "01693724182", Email = "mail@sample.net" },
-                new Reader { Fullname = "Hoàng Văn Uông", Address = "D8CNPM", PhoneNumber = "01693724182", Email = "mail@sample.net" },
-                new Reader { Fullname = "Lê Trung Híu", Address = "D8CNPM", PhoneNumber = "01693724182", Email = "mail@sample.net" },
-            });
+            var readers = new List<Reader>();
+            for (var i = 0; i < 50; i++)
+                readers.Add(new Reader
+                {
+                    Fullname = Name.FullName(),
+                    Address = Address.StreetAddress(),
+                    PhoneNumber = "0987654321",
+                    Email = "mail@example.com"
+                });
+            context.Readers.AddRange(readers);
             context.SaveChanges();
             // Books
-            {
-                var authors = context.Authors.ToList();
-                var publishers = context.Publishers.ToList();
-                var categories = context.Categories.ToList();
-                var items = BookTitles //Enumerable.Range(0, 200)
-                    .Select(x => new Book
-                    {
-                        Author = authors[RandomNumber.Next(authors.Count)],
-                        Category = categories[RandomNumber.Next(categories.Count)],
-                        Publisher =  publishers[RandomNumber.Next(publishers.Count)],
-                        Count = RandomNumber.Next(10, 100),
-                        Description = Lorem.Paragraph(),
-                        Name = x,
-                        Price = RandomNumber.Next(10, 100) * 1000,
-                        NumberOfPage = RandomNumber.Next(40, 345),
-                        PublishYear = RandomNumber.Next(2008, 2017)
-                    });
-                context.Books.AddRange(items);
-            }
+            var authors = context.Authors.ToList();
+            var publishers = context.Publishers.ToList();
+            var categories = context.Categories.ToList();
+            var books = BookTitles //Enumerable.Range(0, 200)
+                .Select(x => new Book
+                {
+                    Author = authors[RandomNumber.Next(authors.Count)],
+                    Category = categories[RandomNumber.Next(categories.Count)],
+                    Publisher = publishers[RandomNumber.Next(publishers.Count)],
+                    Count = RandomNumber.Next(10, 100),
+                    Description = Lorem.Paragraph(),
+                    Name = x,
+                    Price = RandomNumber.Next(10, 100) * 1000,
+                    NumberOfPage = RandomNumber.Next(40, 345),
+                    PublishYear = RandomNumber.Next(2008, 2017),
+                    ThumbnailUrl = Thumbnails.Random()
+                })
+                .ToList();
+            context.Books.AddRange(books);
             // Tickets
-            // TODO: 
+            var tickets = new List<Ticket>();
+            for (var i = 0; i < 30; i++)
+            {
+                var date = DateTime.Today.Subtract(new TimeSpan(i, 0, 0, 0));
+                for (var j = 0; j < RandomNumber.Next(5, 15); j++)
+                {
+                    var ticket = new Ticket { DateCreated = date, Reader = readers[RandomNumber.Next(readers.Count)] };
+                    var tmp = RandomNumber.Next(4) + 2;
+                    if (i >= tmp)
+                        ticket.DateReturned = date.Add(new TimeSpan(tmp, 0, 0, 0));
+                    tmp = RandomNumber.Next(3, 6);
+                    while (tmp-- >= 0)
+                        ticket.Books.Add(books[RandomNumber.Next(books.Count)]);
+                    tickets.Add(ticket);
+                }
+            }
+            context.Tickets.AddRange(tickets);
+            context.SaveChanges();
         }
     }
 
-    public class DebugDatabaseSeeder : DropCreateDatabaseIfModelChanges<ThuVienDb>
+    public class DebugDatabaseSeeder : DropCreateDatabaseAlways<ThuVienDb>
     {
         protected override void Seed(ThuVienDb context)
         {

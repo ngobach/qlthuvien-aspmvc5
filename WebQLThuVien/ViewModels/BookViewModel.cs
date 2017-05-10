@@ -12,6 +12,9 @@ namespace WebQLThuVien.ViewModels
         [Display(Name = "Tên sách")]
         public string Name { get; set; }
         [Required]
+        [Display(Name = "Hình ảnh bìa")]
+        public string ThumbnailUrl { get; set; }
+        [Required]
         [Display(Name = "Giới thiệu về sách")]
         public string Description { get; set; }
         [Required]

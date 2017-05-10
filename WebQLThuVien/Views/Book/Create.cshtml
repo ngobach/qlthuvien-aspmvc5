@@ -22,6 +22,10 @@
                             @Html.LabelFor(x => x.Description, new { @class = "control-label" })
                             @Html.TextBoxFor(x => x.Description, new { @class = "form-control" })
                         </div>
+                        <div class="form-group label-floating">
+                            @Html.LabelFor(x => x.ThumbnailUrl, new { @class = "control-label" })
+                            @Html.TextBoxFor(x => x.ThumbnailUrl, new { @class = "form-control" })
+                        </div>
                         <div class="form-group">
                             @Html.LabelFor(x => x.AuthorId, new { @class = "control-label" })
                             @Html.DropDownListFor(x => x.AuthorId, new SelectList(ViewBag.Authors, "Id", "Name"), new { @class = "form-control" })

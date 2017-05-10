@@ -46,6 +46,8 @@ namespace WebQLThuVien.Models
         public int Count { get; set; }
         [Range(0, 1000000000)]
         public double Price { get; set; }
+        [Display(Name = "Ảnh bìa")]
+        public string ThumbnailUrl { get; set; }
 
         [NotMapped]
         [Display(Name = "Số lượng còn lại")]
