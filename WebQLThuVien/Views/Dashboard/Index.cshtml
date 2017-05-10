@@ -1,25 +1,131 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+    ViewBag.Title = "Bảng điều khiển";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="container-fluid">
-    <h3>This is admin dashboard view</h3>
-    <!-- Split button -->
-    <div class="btn-group btn-group-xs">
-        <a class="btn btn-danger">Action</a>
-        <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-        </button>
-        <ul class="dropdown-menu">
-            <li><a href="#">Action</a></li>
-            <li><a href="#">Another action</a></li>
-            <li><a href="#">Something else here</a></li>
-            <li class="divider"></li>
-            <li><a href="#">Separated link</a></li>
-        </ul>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="card card-stats">
+                <div class="card-header" data-background-color="green">
+                    <i class="material-icons">library_books</i>
+                </div>
+                <div class="card-content">
+                    <p class="category">Tổng số sách</p>
+                    <h3 class="title">@ViewBag.BookCount</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        @Html.ActionLink("Đến menu quản lý sách","Index", "Book")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card card-stats">
+                <div class="card-header" data-background-color="red">
+                    <i class="material-icons">library_books</i>
+                </div>
+                <div class="card-content">
+                    <p class="category">Số sách đã mượn</p>
+                    <h3 class="title">@ViewBag.RentBookCount</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        @Html.ActionLink("Đến menu quản lý sách", "Index", "Book")
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="card card-stats">
+                <div class="card-header" data-background-color="blue">
+                    <i class="material-icons">assignment</i>
+                </div>
+                <div class="card-content">
+                    <p class="category">Số phiếu mượn chưa trả</p>
+                    <h3 class="title">@ViewBag.OpenTicketCount</h3>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        @Html.ActionLink("Đến menu quản lý phiếu mượn", "Index", "Ticket")
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- ./row -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-chart" data-background-color="orange">
+                    <div class="ct-chart" id="rentChart"></div>
+                </div>
+                <div class="card-content">
+                    <h4 class="title">Biểu đồ sách đã mượn</h4>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> dữ liệu thu thập 14 ngày qua
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-chart" data-background-color="green">
+                    <div class="ct-chart" id="returnChart"></div>
+                </div>
+                <div class="card-content">
+                    <h4 class="title">Biểu đồ sách đã trả</h4>
+                </div>
+                <div class="card-footer">
+                    <div class="stats">
+                        <i class="material-icons">access_time</i> dữ liệu thu thập 14 ngày qua
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>
+@section scripts
+{
+    <script type="text/javascript">
+        @{
+            var labels = new HtmlString("[" + string.Join(",", (ViewBag.RentData as IEnumerable<KeyValuePair<string, int>>).Select(x => "'" + x.Key + "'")) + "]");
+            var values = new HtmlString("[" + string.Join(",", (ViewBag.RentData as IEnumerable<KeyValuePair<string, int>>).Select(x => x.Value)) + "]");
+        }
+        var rentChartData = {
+            labels: @labels,
+            series: [
+                @values
+            ]
+        };
+        var rentChart = new Chartist.Line('#rentChart', rentChartData, {
+            lineSmooth: Chartist.Interpolation.cardinal({
+                tension: 1
+            }),
+            low: 0,
+            chartPadding: { right: 0, bottom: 0, left: 0 },
+        });
+        md.startAnimationForLineChart(rentChart);
+
+        @{
+            labels = new HtmlString("[" + string.Join(",", (ViewBag.ReturnData as IEnumerable<KeyValuePair<string, int>>).Select(x => "'" + x.Key + "'")) + "]");
+            values = new HtmlString("[" + string.Join(",", (ViewBag.ReturnData as IEnumerable<KeyValuePair<string, int>>).Select(x => x.Value)) + "]");
+        }
+        var returnChartData = {
+            labels: @labels,
+            series: [
+                @values
+            ]
+        };
+        var returnChart = new Chartist.Line('#returnChart', returnChartData, {
+            lineSmooth: Chartist.Interpolation.cardinal({
+                tension: 1
+            }),
+            low: 0,
+            chartPadding: { right: 0, bottom: 0, left: 0 },
+        });
+        md.startAnimationForLineChart(returnChart);
+    </script>
+}
