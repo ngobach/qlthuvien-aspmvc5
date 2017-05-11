@@ -53,14 +53,26 @@
         </div>
         <div class="col-sm-3">
             <div class="card">
+                <div class="card-header" data-background-color="orange">
+                    <h4 class="card-title">Lọc phiếu mượn</h4>
+                </div>
+                <div class="card-content">
+                    <div class="form-group">
+                        <label class="control-label">Độc giả</label>
+                        @Html.DropDownList("readerId", new SelectList(ViewBag.Readers, "Id", "Fullname"), new { @class = "form-control" })
+                    </div>
+                    <button class="btn btn-block btn-simple btn-primary" type="button" onclick="doFilter(this)">Lọc</button>
+                </div>
+            </div>
+            <div class="card">
                 <div class="card-header" data-background-color="green">
                     <h4 class="title">Tạo phiếu mới</h4>
                 </div>
                 <div class="card-content">
                     <form role="form" action="@Url.Action("Create")" method="post">
                         <div class="form-group">
-                            @Html.Label("Độc giả", new { @class = "control-label"})
-                            @Html.DropDownList("ReaderId", new SelectList(ViewBag.Readers, "Id", "Fullname"), new { @class = "form-control" })
+                            @Html.Label("Độc giả", new {@class = "control-label"})
+                            @Html.DropDownList("ReaderId", new SelectList(ViewBag.Readers, "Id", "Fullname"), new {@class = "form-control"})
                         </div>
                         <button class="btn btn-block btn-primary btn-simple" type="submit">Tạo mới</button>
                     </form>
@@ -93,14 +105,15 @@
     <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="//cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript">
+        // Datatables
         $(function() {
             $('#mainTable').DataTable({
                 ordering: false,
                 info: false
             });
         });
-    </script>
-    <script type="text/javascript">
+
+        // Detele callback
         var url;
         function deleteItem(item) {
             url = $(item).data('href');
@@ -109,9 +122,15 @@
         function confirmDelete() {
             top.location.href = url;
         }
-    </script>
-    <script type="text/javascript">
+
+        // Select 2 Initialize
         $('select').select2();
+
+        // Filter callback
+        function doFilter() {
+            var $e = $('#readerId');
+            top.location.href = "?readerId=" + $e.val();
+        }
     </script>
 }
 

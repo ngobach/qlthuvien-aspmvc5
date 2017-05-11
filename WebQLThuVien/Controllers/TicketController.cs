@@ -13,7 +13,7 @@ namespace WebQLThuVien.Controllers
     [AuthFilter]
     public class TicketController : Controller
     {
-        private ThuVienDb db = new ThuVienDb();
+        private readonly ThuVienDb db = new ThuVienDb();
 
         protected override void Initialize(RequestContext requestContext)
         {
@@ -23,18 +23,14 @@ namespace WebQLThuVien.Controllers
         }
 
         [HttpGet]
-        public ActionResult Index(int? readerId, int? bookId)
+        public ActionResult Index(int? readerId)
         {
             IQueryable<Ticket> items = db.Tickets;
             if (readerId.HasValue)
             {
                 items = items.Where(x => x.ReaderId == readerId.Value);
             }
-            if (bookId.HasValue)
-            {
-                items = items.Where(x => x.Books.Contains(db.Books.Single(book => book.Id == bookId.Value)));
-            }
-            return View(items.ToList());
+            return View(items);
         }
 
         [HttpPost]
