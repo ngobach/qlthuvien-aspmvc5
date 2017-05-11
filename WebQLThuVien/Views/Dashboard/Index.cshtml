@@ -102,7 +102,7 @@
         };
         var rentChart = new Chartist.Line('#rentChart', rentChartData, {
             lineSmooth: Chartist.Interpolation.cardinal({
-                tension: 1
+                tension: 0
             }),
             low: 0,
             chartPadding: { right: 0, bottom: 0, left: 0 },
@@ -121,7 +121,7 @@
         };
         var returnChart = new Chartist.Line('#returnChart', returnChartData, {
             lineSmooth: Chartist.Interpolation.cardinal({
-                tension: 1
+                tension: 0
             }),
             low: 0,
             chartPadding: { right: 0, bottom: 0, left: 0 },
