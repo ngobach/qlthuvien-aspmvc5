@@ -19,6 +19,7 @@ namespace WebQLThuVien.Controllers
         [HttpGet]
         public ActionResult Login()
         {
+            ViewBag.Sample = new ThuVienDb().Users.First();
             return View();
         }
 
