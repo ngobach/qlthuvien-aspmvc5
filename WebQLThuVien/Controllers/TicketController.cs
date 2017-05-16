@@ -105,7 +105,7 @@ namespace WebQLThuVien.Controllers
         {
             db.Tickets.Single(t => t.Id == id).DateReturned = DateTime.Today;
             db.SaveChanges();
-            return RedirectToAction("Edit", new {id});
+            return RedirectToAction("Detail", new {id});
         }
 
         [HttpGet]
