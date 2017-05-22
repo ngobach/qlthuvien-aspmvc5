@@ -21,10 +21,24 @@ namespace WebQLThuVien.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            var reader = new Reader {Fullname = "Họ tên"};
-            db.Readers.Add(reader);
-            db.SaveChanges();
-            return RedirectToAction("Edit", new {id = reader.Id});
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Create(Reader reader)
+        {
+            if (ModelState.IsValid)
+            {
+                if (string.IsNullOrEmpty(reader.Password))
+                {
+                    ModelState.AddModelError("", "Không được bỏ trống mật khẩu");
+                }
+                db.Readers.Add(reader);
+                db.SaveChanges();
+                Session["message"] = "Tạo mới độc giả thành công";
+                return RedirectToAction("Index");
+            }
+            return View(reader);
         }
 
         [HttpPost]
@@ -32,13 +46,16 @@ namespace WebQLThuVien.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (string.IsNullOrEmpty(reader.Password))
+                {
+                    reader.Password = db.Readers.Single(x => x.Id == reader.Id).Password;
+                }
                 db.Readers.Attach(reader);
                 db.Entry(reader).State = EntityState.Modified;
                 db.SaveChanges();
                 Session["message"] = "Cập nhật độc giả thành công";
                 return RedirectToAction("Index");
             }
-
             return View(reader);
         }
 
