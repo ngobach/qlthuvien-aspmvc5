@@ -234,21 +234,21 @@ namespace WebQLThuVien.Models
             // Authors
             context.Authors.AddRange(new[]
             {
-                new Author {Name = "Nguyễn Ngọc Ngạn", Description = "Nothing"},
-                new Author {Name = "Trần Thu Hương", Description = "Nothing"},
-                new Author {Name = "Bùi Quốc Dũng", Description = "Nothing"},
-                new Author {Name = "Hoàng Văn Quân", Description = "Nothing"},
-                new Author {Name = "Đinh Sơn Nam", Description = "Nothing"},
-                new Author {Name = "Ngô Ngọc Thành", Description = "Nothing"},
-                new Author {Name = "Bùi Xuân Quyết", Description = "Nothing"}
+                new Author {Name = "Nguyễn Ngọc Ngạn", Description = "Giới thiệu tác giả"},
+                new Author {Name = "Trần Thu Hương", Description = "Giới thiệu tác giả"},
+                new Author {Name = "Bùi Quốc Dũng", Description = "Giới thiệu tác giả"},
+                new Author {Name = "Hoàng Văn Quân", Description = "Giới thiệu tác giả"},
+                new Author {Name = "Đinh Sơn Nam", Description = "Giới thiệu tác giả"},
+                new Author {Name = "Ngô Ngọc Thành", Description = "Giới thiệu tác giả"},
+                new Author {Name = "Bùi Xuân Quyết", Description = "Giới thiệu tác giả"}
             });
             // Publisher
             context.Publishers.AddRange(new[]
             {
-                new Publisher {Name = "Kim Đồng", Description = "Nothing"},
-                new Publisher {Name = "Tuổi trẻ", Description = "Nothing"},
-                new Publisher {Name = "Văn Học", Description = "Nothing"},
-                new Publisher {Name = "Điện Lực", Description = "Nothing"}
+                new Publisher {Name = "Kim Đồng", Description = "Giới thiệu về nhà xuất bản"},
+                new Publisher {Name = "Tuổi trẻ", Description = "Giới thiệu về nhà xuất bản"},
+                new Publisher {Name = "Văn Học", Description = "Giới thiệu về nhà xuất bản"},
+                new Publisher {Name = "Điện Lực", Description = "Giới thiệu về nhà xuất bản"}
             });
             // Category
             context.Categories.AddRange(new[]
@@ -268,6 +268,8 @@ namespace WebQLThuVien.Models
             for (var i = 0; i < 50; i++)
                 readers.Add(new Reader
                 {
+                    Username = Internet.UserName(),
+                    Password = "123456",
                     Fullname = Name.FullName(),
                     Address = Address.StreetAddress(),
                     PhoneNumber = "0987654321",

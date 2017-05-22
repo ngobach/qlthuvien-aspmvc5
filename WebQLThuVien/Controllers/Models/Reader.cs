@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace WebQLThuVien.Models
 {
@@ -7,6 +8,13 @@ namespace WebQLThuVien.Models
     {
         public int Id { get; set; }
 
+        [Required]
+        [Display(Name = "Tên đăng nhập")]
+        public string Username { get; set; }
+        
+        [Display(Name = "Mật khẩu")]
+        public string Password { get; set; }
+        
         [Required]
         [Display(Name = "Họ và tên")]
         public string Fullname { get; set; }
