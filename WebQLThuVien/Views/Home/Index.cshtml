@@ -1,8 +1,113 @@
-﻿
-@{
-    ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@{
+    ViewBag.Title = "Tiêu đề trang";
+    Layout = "~/Views/Shared/User/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="card text-center">
+                    <div class="card-header">
+                        Tìm kiếm
+                    </div>
+                    <div class="card-block">
+                        <span class="category d-block my-3">Tên tác phẩm</span>
+                        <form action="@Url.Action("Index")" method="get">
+                            <div class="form-group form-group-no-border">
+                                <input type="text" class="form-control mb-2" name="book" placeholder="Tên tác phẩm"/>
+                                <button class="btn btn-primary btn-simple btn-round btn-block" type="submit">Tìm</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9 text-center">
+                <div class="row">
+                    @foreach (var book in ViewBag.Books)
+                    {
+                        <div class="col-sm-3">
+                            <div class="card card-book" data-book="@book.Id" data-toggle="tooltip" data-placement="top" data-title="@Html.AttributeEncode(book.Name)">
+                                <div class="card-header text-truncate">@book.Name</div>
+                                <div class="card-thumbnail">
+                                    <img src="@book.ThumbnailUrl" />  
+                                </div>
+                                <div class="btn-group btn-group-sm justify-content-center mb-1">
+                                    <a href="@Url.Action("Book", new {id = book.Id})" class="btn btn-primary">Chi tiết</a>
+                                    <a href="#" class="btn btn-neutral btn-add-book">Thêm vào</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+                <nav>
+                    <ul class="pagination pagination-primary d-flex justify-content-center">
+                        @for (var i = 1; i <= ViewBag.PageCount; i++)
+                        {
+                            <li class="page-item @(i==ViewBag.CurrentPage ? "active" : null)"><a href="?page=@i" class="page-link">@i</a></li>                           
+                        }
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 
+@section scripts
+{
+    <script>
+        var checkBook = function()
+        {
+            $('.card-book').each(function(i, e) {
+                var $e = $(e),
+                    $btn = $e.find('.btn-add-book')
+                    bookId = $e.data('book');
+                $.ajax({
+                    url: '@Url.Action("HasBook")' + '/' + bookId,
+                    method: 'GET'
+                }).then(function(data) {
+                    if (data) {
+                        $btn.removeClass('btn-neutral');
+                        $btn.addClass('btn-danger');
+                        $btn.text('Loại bỏ');
+                    } else {
+                        $btn.removeClass('btn-danger');
+                        $btn.addClass('btn-neutral');
+                        $btn.text('Thêm vào');
+                    }
+                });
+            });
+        }
+        var noti = function (msg, type) {
+            $.notify({
+                icon: 'now-ui-icons ui-1_send',
+                message: msg
+            },
+            {
+                delay: 3000,
+                allow_dismiss: false,
+                type: type || 'info',
+                placement: {
+                    from: 'bottom',
+                    align: 'right'
+                }
+            }).show();
+        }
+
+        $(document).ready(function() {
+            checkBook();
+            $('.btn-add-book').click(function(e) {
+                e.preventDefault();
+                var $e = $(this).closest('.card-book');
+                var isRemove = $(this).hasClass('btn-danger');
+                $.ajax({
+                    url: (isRemove ? '@Url.Action("RemoveBook")' : '@Url.Action("AddBook")') + '/' + $e.data('book'),
+                    method: 'POST'
+                }).then(function (data) {
+                    setTimeout(checkBook, 1);
+                    noti(data.Message, isRemove ? 'danger' : 'success');
+                });
+            });
+        });
+    </script>
+}

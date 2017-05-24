@@ -12,11 +12,11 @@ namespace WebQLThuVien.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             // Auto login first user
-            if (filterContext.HttpContext.IsDebuggingEnabled)
-                using (var db = new ThuVienDb())
-                {
-                    filterContext.HttpContext.Session["uid"] = db.Users.First().Id;
-                }
+            //if (filterContext.HttpContext.IsDebuggingEnabled)
+            //    using (var db = new ThuVienDb())
+            //    {
+            //        filterContext.HttpContext.Session["uid"] = db.Users.First().Id;
+            //    }
 
             if (filterContext.HttpContext.Session["uid"] == null)
             {

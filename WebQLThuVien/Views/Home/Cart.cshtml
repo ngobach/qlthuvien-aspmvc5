@@ -1,0 +1,43 @@
+﻿@using WebQLThuVien.Models
+@{
+    ViewBag.Title = "Giỏ sách";
+    Layout = "~/Views/Shared/User/_Layout.cshtml";
+}
+
+<div class="section">
+    <div class="container">
+        <h3>@ViewBag.Title</h3>
+        @{
+            var counter = 1;
+        }
+        <table class="table table-bordered">
+            <thead class="thead-default">
+            <tr>
+                <th style="width: 60px">STT</th>
+                <th>Tên sách</th>
+                <th>Tác giả</th>
+                <th>&nbsp;</th>
+            </tr>
+            </thead>
+            <tbody>
+            @foreach (var book in (ViewBag.Books as IEnumerable<Book>))
+            {
+                <tr>
+                    <td>@(counter++)</td>
+                    <td>@book.Name</td>
+                    <td>@book.Author.Name</td>
+                    <td>@Html.ActionLink("Chi tiết", "Book", new {id = book.Id})</td>
+                </tr>
+            }
+            </tbody>
+        </table>
+        @if (ViewBag.Books.Count > 0)
+        {
+            <div class="clearfix mb-4">
+                <form action="@Url.Action("CreateTicket")" method="post">
+                    <button type="submit" class="btn btn-primary pull-right">Tạo phiếu mượn</button>
+                </form>
+            </div>   
+        }
+    </div>
+</div>

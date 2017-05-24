@@ -1,0 +1,10 @@
+﻿.card-book .card-thumbnail img {
+    height: 18rem;
+}
+
+.card-book .btn-group {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}

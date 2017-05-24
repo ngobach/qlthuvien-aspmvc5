@@ -1,0 +1,86 @@
+﻿@using WebQLThuVien.Models
+@{
+    ViewBag.Title = "Thôn tin sách" + ViewBag.Book.Name;
+    Layout = "~/Views/Shared/User/_Layout.cshtml";
+    var book = ViewBag.Book as Book;
+}
+
+<section class="section" data-background-color="orange">
+    <div class="container">
+        <div class="row">
+            <div class="col-3">
+                <div class="thumbnail-container">
+                    <img src="@book.ThumbnailUrl" class="book-thumbnail"/>
+                    <div class="btn-group btn-group-justified mt-2">
+                        <button id="btnAdd" class="btn btn-primary">Thêm vào giỏ sách</button>
+                        <button class="btn btn-warning" onclick="history.back()">Trở lại</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-9">
+                <h3>@book.Name<br /><small>@book.Author.Name</small></h3>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col-3">&nbsp;</div>
+            <div class="col-9" style="min-height: 23rem; margin-top: -4rem">
+                <p class="display-4 text-white">Giới thiệu sách</p>
+                <p class="lead">@book.Description</p>
+            </div>
+        </div>
+    </div>
+</section>
+@section styles
+{
+    <style>
+        .thumbnail-container {
+            position: absolute;
+            z-index: 999;
+            text-align: center;
+        }
+        .thumbnail-container img {
+            height: 24rem;
+            width: 100%;
+        }
+    </style>
+}
+
+@section scripts {
+    <script type="text/javascript">
+        $(function() {
+            var $btn = $('#btnAdd');
+            var isRemove = false;
+            $.ajax({
+                url: '@Url.Action("HasBook")' + '/' + @book.Id,
+                method: 'GET'
+            }).then(function (data) {
+                isRemove = data;
+                if (isRemove) {
+                    $btn.text('Xóa khỏi giỏ');
+                } else {
+                    $btn.text('Thêm vào giỏ');
+                }
+                $btn.click(function() {
+                    if (isRemove) {
+                        $.ajax({
+                            url: '@Url.Action("RemoveBook")' + '/' + @book.Id,
+                            method: 'POST'
+                        });
+                        $btn.text('Thêm vào giỏ');
+                    } else {
+                        $.ajax({
+                            url: '@Url.Action("AddBook")' + '/' + @book.Id,
+                            method: 'POST'
+                        });
+                        $btn.text('Xóa khỏi giỏ');
+                    }
+                    isRemove = !isRemove;
+                });
+            });
+        });
+    </script>
+}

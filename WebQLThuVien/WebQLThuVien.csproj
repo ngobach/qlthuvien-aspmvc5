@@ -102,6 +102,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="assets\user\css\app.css" />
     <Content Include="assets\user\css\bootstrap.min.css" />
     <Content Include="assets\user\css\demo.css" />
     <Content Include="assets\user\css\now-ui-kit.css" />
@@ -221,18 +222,15 @@
     <Content Include="assets\user\img\flags\VN.png" />
     <Content Include="assets\user\img\flags\YE.png" />
     <Content Include="assets\user\img\header.jpg" />
-    <Content Include="assets\user\img\hero-image-1.png" />
-    <Content Include="assets\user\img\hero-image-2.png" />
-    <Content Include="assets\user\img\hero-image-3.png" />
+    <Content Include="assets\user\img\head_bg.jpg" />
     <Content Include="assets\user\img\invision-white-slim.png" />
-    <Content Include="assets\user\img\landing.jpg" />
     <Content Include="assets\user\img\login.jpg" />
     <Content Include="assets\user\img\logo-square.jpg" />
     <Content Include="assets\user\img\logo.png" />
-    <Content Include="assets\user\img\now-logo.png" />
     <Content Include="assets\user\img\nucleo-logo.svg" />
     <Content Include="assets\user\img\profile.jpg" />
     <Content Include="assets\user\img\ryan.jpg" />
+    <Content Include="assets\user\js\bootstrap-notify.js" />
     <Content Include="assets\user\js\core\bootstrap.min.js" />
     <Content Include="assets\user\js\core\jquery.3.2.1.min.js" />
     <Content Include="assets\user\js\core\tether.min.js" />
@@ -370,6 +368,11 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Ticket\Detail.cshtml" />
     <Content Include="Views\Reader\Create.cshtml" />
+    <Content Include="Views\Shared\User\_Layout.cshtml" />
+    <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Home\Book.cshtml" />
+    <Content Include="Views\Home\Cart.cshtml" />
+    <Content Include="Views\Home\CreateTicket.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

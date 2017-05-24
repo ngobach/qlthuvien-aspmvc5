@@ -1,0 +1,89 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập hệ thống";
+}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/user/img/apple-icon.png">
+    <link rel="icon" type="image/png" href="/assets/user/img/favicon.png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <title>@ViewBag.Title</title>
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+    <!--     Fonts and icons     -->
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <!-- CSS Files -->
+    <link href="/assets/user/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/user/css/now-ui-kit.css" rel="stylesheet" />
+    <style>
+        .validation-summary-errors ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body class="login-page">
+<!-- Navbar -->
+<nav class="navbar navbar-toggleable-md bg-primary fixed-top navbar-transparent " color-on-scroll="500">
+    <div class="container">
+        <div class="navbar-translate">
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                Thư viện ĐHĐL
+            </a>
+        </div>
+    </div>
+</nav>
+<!-- End Navbar -->
+<div class="page-header" filter-color="orange">
+    <div class="page-header-image" style="background-image:url(/assets/user/img/login.jpg)"></div>
+    <div class="container">
+        <div class="col-md-4 content-center">
+            <div class="card card-login card-plain">
+                @if (!Html.ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger">
+                        @Html.ValidationSummary(false)
+                    </div>   
+                }
+                <form method="post" action="@Url.Action("Login")">
+                    <div class="content">
+                        <div class="input-group form-group-no-border input-lg">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons users_circle-08"></i>
+                            </span>
+                            <input type="text" name="Username" class="form-control" placeholder="Tên đăng nhập...">
+                        </div>
+                        <div class="input-group form-group-no-border input-lg">
+                            <span class="input-group-addon">
+                                <i class="now-ui-icons ui-1_lock-circle-open"></i>
+                            </span>
+                            <input type="password" name="Password" placeholder="Mật khẩu..." class="form-control"/>
+                        </div>
+                    </div>
+                    <div class="footer text-center">
+                        <button class="btn btn-primary btn-round btn-lg btn-block">Đăng nhập</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!--   Core JS Files   -->
+<script src="/assets/user/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="/assets/user/js/core/tether.min.js" type="text/javascript"></script>
+<script src="/assets/user/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/user/js/plugins/bootstrap-switch.js"></script>
+<script src="/assets/user/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<script src="/assets/user/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="/assets/user/js/now-ui-kit.js" type="text/javascript"></script>
+</body>
+
+</html>

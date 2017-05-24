@@ -265,6 +265,15 @@ namespace WebQLThuVien.Models
             });
             // Reader
             var readers = new List<Reader>();
+            readers.Add(new Reader
+            {
+                Username = "bachnx",
+                Password = "matkhau",
+                Fullname = "Ngô Xuân Bách",
+                Address = Address.StreetAddress(),
+                PhoneNumber = "0987654321",
+                Email = "mail@example.com"
+            });
             for (var i = 0; i < 50; i++)
                 readers.Add(new Reader
                 {
