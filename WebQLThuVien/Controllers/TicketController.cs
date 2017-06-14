@@ -114,5 +114,12 @@ namespace WebQLThuVien.Controllers
             var ticket = db.Tickets.Single(x => x.Id == id);
             return View(ticket);
         }
+
+        [HttpGet]
+        public ActionResult Print(int id)
+        {
+            var ticket = db.Tickets.Single(x => x.Id == id);
+            return View(ticket);
+        }
     }
 }

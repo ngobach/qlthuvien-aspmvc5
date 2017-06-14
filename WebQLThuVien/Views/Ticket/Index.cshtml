@@ -35,6 +35,7 @@
                                         <a href="@Url.Action("Detail", new {id = item.Id})" class="btn btn-success">Chi tiết</a>
                                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown"><span class="caret"></span></button>
                                         <ul class="dropdown-menu">
+                                            <li><a href="@Url.Action("Print", new {id = item.Id})">In phiếu</a></li>
                                             <li><a href="@Url.Action("Edit", new {id = item.Id})">Chỉnh sửa</a></li>
                                             @if (item.DateReturned == null)
                                             {

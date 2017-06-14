@@ -1,0 +1,99 @@
+﻿@model WebQLThuVien.Models.Ticket
+
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Phiêu mượn @Model.MaPhieu</title>
+    <link rel="stylesheet" href="~/assets/css/bootstrap.min.css"/>
+    <style type="text/css">
+        body, html {
+            margin: 0;
+            padding: 0;
+        }
+        dd {
+            padding-left: 3rem;
+        }
+        .main {
+            margin: 2rem 0;
+        }
+        .info {
+            border: dashed 1px #AAA;
+            margin-top: 3rem;
+        }
+        table {
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-8 col-xs-offset-2">
+            <div class="main">
+                <div class="row">
+                    <div class="col-xs-6 text-center">
+                        <p><strong>Đại Học Điện Lực Hà Nội</strong></p>
+                        <p>Thư viện nhà trường</p>
+                    </div>
+                    <div class="col-xs-6 text-center">
+                        <h3><strong>Phiếu mượn sách</strong></h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6 col-xs-offset-3 info">
+                        <h4 class="text-center text-uppercase">
+                            Thông tin phiếu mượn
+                        </h4>
+                        <dl>
+                            <dt>Mã phiếu</dt>
+                            <dd>@Model.MaPhieu</dd>
+                            <dt>Người mượn</dt>
+                            <dd>@Model.Reader.Fullname</dd>
+                            <dt>Ngày mượn</dt>
+                            <dd>@Model.DateCreated</dd>
+                            <dt>Số lượng sách</dt>
+                            <dd>@Model.Books.Count</dd>
+                        </dl>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Mã sách</th>
+                        <th class="text-center">Tên sách</th>
+                        <th class="text-center">Tác giả</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach (var book in Model.Books)
+                    {
+                        <tr>
+                            <td class="text-center">@book.Id</td>
+                            <td>@book.Name</td>
+                            <td>@book.Author.Name</td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+                
+                <div class="row">
+                    <div class="col-xs-6 text-center">
+                        <p><strong>Người lập</strong></p>
+                        <p>Ký & ghi rõ họ tên</p>
+                    </div>
+                    <div class="col-xs-6 text-center">
+                        <p><strong>Người mượn</strong></p>
+                        <p>Ký & ghi rõ họ tên</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>print();</script>
+</body>
+</html>

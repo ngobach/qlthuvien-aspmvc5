@@ -35,5 +35,8 @@ namespace WebQLThuVien.Models
         [NotMapped]
         [Display(Name = "Tình trạng")]
         public string Status => DateReturned.HasValue ? "Đã trả" : "Chưa trả";
+
+        [NotMapped]
+        public string MaPhieu => "PM" + Id.ToString("000000");
     }
 }

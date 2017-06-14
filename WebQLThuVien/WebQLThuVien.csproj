@@ -373,6 +373,7 @@
     <Content Include="Views\Home\Book.cshtml" />
     <Content Include="Views\Home\Cart.cshtml" />
     <Content Include="Views\Home\CreateTicket.cshtml" />
+    <Content Include="Views\Ticket\Print.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
